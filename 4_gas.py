@@ -52,7 +52,7 @@ def monte_carlo(f, a, b, N):
     r = random.rand(N)
     r = a + (b - a) * r
     # volume of domain [a,b]
-    vol = b - a
+    vol = 1.0 * (b - a)
     # eval function at sample pts
     y = f(r)
     # eval integral
