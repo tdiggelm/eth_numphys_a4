@@ -1,6 +1,6 @@
 from numpy import *
 from matplotlib.pyplot import *
-
+from scipy.integrate import quad
 
 def U(r, eps=140, sigma=0.3943):
     x = (sigma / (1.0*r))**6
@@ -10,7 +10,6 @@ def U(r, eps=140, sigma=0.3943):
 def f(r, T, kB=0.693):
     return r**2 * (1.0 - exp(-U(r)/(kB*T)))
 
-
 x = linspace(0.2, 2, 500)
 
 #############################
@@ -18,14 +17,25 @@ x = linspace(0.2, 2, 500)
 # Plotten Sie das Potential #
 #                           #
 #############################
-
+figure(figsize=(12,8))
+plot(x, U(x))
+xlabel(r"$r$")
+ylabel(r"$U(r)$")
+grid(True)
+show()
 
 ###############################
 #                             #
 # Plotten Sie den Integranden #
 #                             #
 ###############################
-
+figure(figsize=(12,8))
+for T in linspace(150, 550, 20):
+    plot(x, f(x, T), alpha=0.7)
+xlabel(r"$r$")
+ylabel(r"$U(r)$")
+grid(True)
+show()
 
 # Integrationsintervall
 a = 0.01
@@ -37,5 +47,30 @@ I = 0.0
 # Implementieren Sie eine Monte-Carlo Quadratur #
 #                                               #
 #################################################
+def monte_carlo(f, a, b, N):
+    # generate N samples in [a,b]
+    r = random.rand(N)
+    r = a + (b - a) * r
 
+    # volume of domain [a,b]
+    vol = b - a
+
+    # eval function at sample pts
+    y = f(r)
+
+    # eval integral
+    I = sum(y) / N
+
+    # compute square of var
+    if (N > 1):
+        var2 = (sum(y**2)/N - I**2) / (N-1)
+    else:
+        var2 = 0.
+
+    return I*vol, var2*vol**2
+
+Iref, _ = quad(lambda r: f(r, 300), a, b)
+print("B_2 (reference) = %f" % Iref)
+
+I, _ = monte_carlo(lambda r: f(r, 300), a, b, 500000)
 print("B_2 = %f" % I)
