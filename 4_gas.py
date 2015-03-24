@@ -29,11 +29,12 @@ show()
 # Plotten Sie den Integranden #
 #                             #
 ###############################
-figure(figsize=(12,8))
+figure(figsize=(12,10))
 for T in linspace(150, 550, 20):
-    plot(x, f(x, T), alpha=0.7)
+    plot(x, f(x, T), alpha=0.7, label="$f(x, T=%s)$" % T)
 xlabel(r"$r$")
-ylabel(r"$U(r)$")
+ylabel(r"$f(r)$")
+legend(loc="upper right")
 grid(True)
 show()
 
@@ -41,7 +42,6 @@ show()
 a = 0.01
 b = 10
 
-I = 0.0
 #################################################
 #                                               #
 # Implementieren Sie eine Monte-Carlo Quadratur #
@@ -51,22 +51,17 @@ def monte_carlo(f, a, b, N):
     # generate N samples in [a,b]
     r = random.rand(N)
     r = a + (b - a) * r
-
     # volume of domain [a,b]
     vol = b - a
-
     # eval function at sample pts
     y = f(r)
-
     # eval integral
     I = sum(y) / N
-
     # compute square of var
     if (N > 1):
         var2 = (sum(y**2)/N - I**2) / (N-1)
     else:
         var2 = 0.
-
     return I*vol, var2*vol**2
 
 Iref, _ = quad(lambda r: f(r, 300), a, b)
