@@ -19,6 +19,7 @@ x = linspace(0.2, 2, 500)
 #############################
 figure(figsize=(12,8))
 plot(x, U(x))
+ylim(-150,20)
 xlabel(r"$r$")
 ylabel(r"$U(r)$")
 grid(True)
