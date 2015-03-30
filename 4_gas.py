@@ -14,7 +14,6 @@ def U(r, eps=140, sigma=0.3943):
     x = (sigma / (1.0*r))**6
     return 4.0*eps*(x**2 - x)
 
-
 def f(r, T, kB=0.693):
     return r**2 * (1.0 - exp(-U(r)/(kB*T)))
 
