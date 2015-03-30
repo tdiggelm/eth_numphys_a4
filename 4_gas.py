@@ -22,8 +22,9 @@ plot(x, U(x))
 ylim(-150,20)
 xlabel(r"$r$")
 ylabel(r"$U(r)$")
+title("assignment 4a")
 grid(True)
-show()
+savefig("part_a.pdf")
 
 ###############################
 #                             #
@@ -36,8 +37,9 @@ for T in linspace(150, 550, 20):
 xlabel(r"$r$")
 ylabel(r"$f(r)$")
 legend(loc="upper right")
+title("assignment 4b")
 grid(True)
-show()
+savefig("part_b.pdf")
 
 # Integrationsintervall
 a = 0.01
@@ -69,4 +71,4 @@ Iref, _ = quad(lambda r: f(r, 300), a, b)
 print("B_2 (reference) = %f" % Iref)
 
 I, _ = monte_carlo(lambda r: f(r, 300), a, b, 500000)
-print("B_2 = %f" % I)
+print("B_2 (monte-carlo) = %f" % I)
