@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+#############################################################################
+# course:   Numerische Methoden D-PHYS
+# exercise: assignment 4
+# author:   Thomas Diggelmann <thomas.diggelmann@student.ethz.ch>
+# date:     30.03.2015
+#############################################################################
 from numpy import *
 from matplotlib.pyplot import *
 from scipy.integrate import quad
