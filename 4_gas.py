@@ -5,6 +5,7 @@
 # author:   Thomas Diggelmann <thomas.diggelmann@student.ethz.ch>
 # date:     30.03.2015
 #############################################################################
+from __future__ import print_function
 from numpy import *
 from matplotlib.pyplot import *
 from scipy.integrate import quad
@@ -74,8 +75,20 @@ def monte_carlo(f, a, b, N):
         var2 = 0.
     return I*vol, var2*vol**2
 
-Iref, _ = quad(lambda r: f(r, 300), a, b)
-print("B_2 (reference) = %f" % Iref)
+if __name__ == '__main__':
+    from time import time
 
-I, _ = monte_carlo(lambda r: f(r, 300), a, b, 500000)
-print("B_2 (monte-carlo) = %f" % I)
+    with open("./output.txt", "w") as fp:
+        print("assignment 4d:\n", file=fp)
+
+        start = time()
+        Iref, _ = quad(lambda r: f(r, 300), a, b)
+        stop = time()
+        print("B_2 (reference) = %f" % Iref, file=fp)
+        print('needed %f seconds\n' % (stop-start), file=fp)
+
+        start = time()
+        I, _ = monte_carlo(lambda r: f(r, 300), a, b, 500000)
+        stop = time()
+        print("B_2 (monte-carlo) = %f" % I, file=fp)
+        print('needed %f seconds\n' % (stop-start), file=fp)

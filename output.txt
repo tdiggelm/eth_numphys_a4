@@ -1,0 +1,8 @@
+assignment 4d:
+
+B_2 (reference) = -0.025035
+needed 0.002028 seconds
+
+B_2 (monte-carlo) = -0.025039
+needed 0.074443 seconds
+
